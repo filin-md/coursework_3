@@ -26,7 +26,7 @@ def encode_to(to_str):
 
 
 
-def new_list():
+def last_five():
     """Функция, которая берёт исходный список словарей json
     и по нему создаёт новый с необходимыми полями в нужном формате"""
     with open(DATA, encoding="UTF-8") as file:
@@ -68,9 +68,23 @@ def new_list():
 
         return result
 
-for i in new_list():
-    print(i)
+for operation in last_five():
+    if 'from' not in operation:
+        print(f"""{operation['date']} {operation['description']}
+-> {operation['to']}
+{operation['amount']}
+""")
+    elif 'to' not in operation:
+        print(f"""{operation['date']} {operation['description']}
+{operation['from']}  -> 
+{operation['amount']}
+""")
+    else:
+        print(f"""{operation['date']} {operation['description']}
+{operation['from']} -> {operation['to']}
+{operation['amount']}
+""")
 
-print(len(new_list()))
+
 
 
