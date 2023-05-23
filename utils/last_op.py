@@ -3,20 +3,6 @@ from datetime import datetime
 
 DATA = "../history/operations.json"
 
-def last_operations():
-    """Функция, которая выводит на экран список
-    из 5 последних выполненных клиентом операций в формате:
-    <дата перевода> <описание перевода>
-    <откуда> -> <куда>
-    <сумма перевода> <валюта>"""
-    # with open('../history/operations.json', encoding='utf8') as file:
-    #     history = json.load(file)
-    #     sorted_date = []
-    #     for i in range(len(history)):
-    #         if "date" in history[i]:
-    #             sorted_date.append(history[i]["date"][:10])
-    #     print(sorted(sorted_date)[-5:])
-
 
 def encode_from(from_str):
     """Функция получает строку с названием и номером карты.
@@ -50,6 +36,9 @@ def new_list():
         for operation in history:
             #Проверяем не пустой ли словарь
             if operation:
+                if operation["state"] == "CANCELED":
+                    continue
+
                 #Создаём пустой словарь для одной операции
                 entity = {}
 
@@ -73,11 +62,15 @@ def new_list():
                 #Берём сумму и валюту, объединяем в одну строку и заносим в словарь по ключу amount
                 entity["amount"] = operation["operationAmount"]["amount"] + " " + operation["operationAmount"]["currency"]["name"]
 
-            formatted_list.append(entity)
+                formatted_list.append(entity)
 
-        return formatted_list
+            result = sorted(formatted_list, key=lambda x: datetime.strptime(x["date"], "%d.%m.%Y"))[-5:]
+
+        return result
 
 for i in new_list():
     print(i)
+
+print(len(new_list()))
 
 
