@@ -26,10 +26,11 @@ def encode_to(to_str):
 
 
 
-def last_five():
+def last_five(data):
     """Функция, которая берёт исходный список словарей json
-    и по нему создаёт новый с необходимыми полями в нужном формате"""
-    with open(DATA, encoding="UTF-8") as file:
+    и по нему создаёт новый список из 5 последних выполненных клиентом операций
+    """
+    with open(data, encoding="UTF-8") as file:
         history = json.load(file)
         formatted_list = []
 
@@ -68,7 +69,7 @@ def last_five():
 
         return result
 
-for operation in last_five():
+for operation in last_five(DATA):
     if 'from' not in operation:
         print(f"""{operation['date']} {operation['description']}
 -> {operation['to']}
