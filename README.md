@@ -6,4 +6,3 @@ Directories:
     history - for json file
     tests - for pytest files
     utils - for main module last_op
-
