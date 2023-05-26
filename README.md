@@ -1,3 +1,8 @@
 # coursework_3
 
-Функция для вывода 5 последний операций пользователя по файлу json
+Hello this is a script for print 5 last operations from json file.
+
+Directories:
+    history - for json file
+    tests - for pytest files
+    utils - for main module last_op
