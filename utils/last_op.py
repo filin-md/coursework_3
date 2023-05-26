@@ -1,7 +1,9 @@
 import json
+import os
 from datetime import datetime
 
-DATA = "../history/operations.json"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+DATA = os.path.join(current_dir, "..", "history", "operations.json")
 
 
 def encode_from(from_str):
@@ -9,7 +11,12 @@ def encode_from(from_str):
     Возвращает обратно строку с названием и закодированным номером карты"""
     items = from_str.split()
     number = items[-1]
-    encode = number[:4] + " " + number[4:6] + "**" + " " + "****" + " " + number[-4:]
+
+    if len(number) == 16:
+        encode = number[:4] + " " + number[4:6] + "**" + " " + "****" + " " + number[-4:]
+    else:
+        encode = number[:4] + " " + number[4:6] + "**" + " " + "**** ****" + " " + number[-4:]
+
     items[-1] = encode
     result = " ".join(items)
     return result
